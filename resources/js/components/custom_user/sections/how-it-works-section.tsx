@@ -1,37 +1,29 @@
 import { User, Search, Share2 as ShareIcon, DollarSign } from 'lucide-react'; // Renamed Share to ShareIcon to avoid conflict
 import { Card, CardContent } from '@/components/ui/card';
-import { usePage } from '@inertiajs/react';
+import { trans } from '@/lib/utils';
 
-// Helper to get translations
-const __ = (key: string, replacements = {}) => {
-    const { translations } = usePage().props as unknown as { translations: Record<string, string> };
-    let translation = translations[key] || key;
-    Object.keys(replacements).forEach(r => {
-        translation = translation.replace(`:${r}`, (replacements as any)[r]);
-    });
-    return translation;
-};
+
 
 const stepsData = [
-    { step: '1', titleKey: 'main.how_step_1_title', descriptionKey: 'main.how_step_1_desc', icon: User },
-    { step: '2', titleKey: 'main.how_step_2_title', descriptionKey: 'main.how_step_2_desc', icon: Search },
-    { step: '3', titleKey: 'main.how_step_3_title', descriptionKey: 'main.how_step_3_desc', icon: ShareIcon },
-    { step: '4', titleKey: 'main.how_step_4_title', descriptionKey: 'main.how_step_4_desc', icon: DollarSign },
+    { step: '1', titleKey: 'how_step_1_title', descriptionKey: 'how_step_1_desc', icon: User },
+    { step: '2', titleKey: 'how_step_2_title', descriptionKey: 'how_step_2_desc', icon: Search },
+    { step: '3', titleKey: 'how_step_3_title', descriptionKey: 'how_step_3_desc', icon: ShareIcon },
+    { step: '4', titleKey: 'how_step_4_title', descriptionKey: 'how_step_4_desc', icon: DollarSign },
 ];
 
 export default function HowItWorksSection() {
     const steps = stepsData.map(s => ({
         ...s,
-        title: __(s.titleKey),
-        description: __(s.descriptionKey),
+        title: trans(s.titleKey),
+        description: trans(s.descriptionKey),
     }));
 
     return (
         <section id="how-it-works" className="py-12 md:py-20 bg-gradient-to-b from-background to-secondary/10 dark:to-black/20">
             <div className="container mx-auto px-4 lg:px-8">
                 <div className="text-center mb-10 md:mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-3">{__('main.how_it_works_title')}</h2>
-                    <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">{__('main.how_it_works_subtitle')}</p>
+                    <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-3">{trans('how_it_works_title')}</h2>
+                    <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">{trans('how_it_works_subtitle')}</p>
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">

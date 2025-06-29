@@ -1,36 +1,27 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { Facebook, Instagram, Twitter, Youtube, Linkedin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import AppLogo from '@/components/app-logo';
-
-// Helper to get translations (ensure this is consistent with your app's i18n setup)
-const __ = (key: string, replacements = {}) => {
-    const { translations } = usePage().props as unknown as { translations: Record<string, string> };
-    let translation = translations[key] || key;
-    Object.keys(replacements).forEach(r => {
-        translation = translation.replace(`:${r}`, (replacements as any)[r]);
-    });
-    return translation;
-};
+import { trans } from '@/lib/utils';
 
 
 export default function CustomUserFooter() {
     const currentYear = new Date().getFullYear();
 
     const quickLinks = [
-        { href: route('welcome') + '#home', labelKey: 'main.nav_home' },
-        { href: route('welcome') + '#about', labelKey: 'main.nav_about_us' },
-        { href: route('welcome') + '#how-it-works', labelKey: 'main.nav_how_it_works' },
-        { href: route('welcome') + '#products', labelKey: 'main.nav_products' },
-        { href: route('welcome') + '#contact', labelKey: 'main.nav_contact_us' },
+        { href: route('home') + '#home', labelKey: 'nav_home' },
+        { href: route('home') + '#about', labelKey: 'nav_about_us' },
+        { href: route('home') + '#how-it-works', labelKey: 'nav_how_it_works' },
+        { href: route('home') + '#products', labelKey: 'nav_products' },
+        { href: route('home') + '#contact', labelKey: 'nav_contact_us' },
     ];
 
     const legalLinks = [
-        { href: '#', labelKey: 'main.footer_terms_of_service' }, // Replace # with actual route if available
-        { href: '#', labelKey: 'main.footer_privacy_policy' },
-        { href: '#', labelKey: 'main.footer_refund_policy' },
-        { href: route('welcome') + '#faq', labelKey: 'main.footer_faq' }, // Assuming FAQ is on welcome page
+        { href: '#', labelKey: 'footer_terms_of_service' }, // Replace # with actual route if available
+        { href: '#', labelKey: 'footer_privacy_policy' },
+        { href: '#', labelKey: 'footer_refund_policy' },
+        { href: route('home') + '#faq', labelKey: 'footer_faq' }, // Assuming FAQ is on home page
     ];
 
     const socialLinks = [
@@ -49,11 +40,11 @@ export default function CustomUserFooter() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                     {/* Company Info & Logo */}
                     <div className="lg:col-span-1 space-y-4">
-                        <Link href={route('welcome')} className="inline-block">
-                            <AppLogo className="h-10 w-auto text-primary" />
+                        <Link href={route('home')} className="inline-block">
+                            <AppLogo />
                         </Link>
                         <p className="text-sm leading-relaxed">
-                            {__('main.footer_company_description')}
+                            {trans('footer_company_description')}
                         </p>
                         <div className="flex space-x-3 rtl:space-x-reverse">
                             {socialLinks.map(social => (
@@ -73,7 +64,7 @@ export default function CustomUserFooter() {
 
                     {/* Quick Links */}
                     <div>
-                        <h4 className="text-lg font-semibold text-white dark:text-primary mb-4">{__('main.footer_quick_links')}</h4>
+                        <h4 className="text-lg font-semibold text-white dark:text-primary mb-4">{trans('footer_quick_links')}</h4>
                         <ul className="space-y-2">
                             {quickLinks.map((link) => (
                                 <li key={link.labelKey}>
@@ -81,7 +72,7 @@ export default function CustomUserFooter() {
                                         href={link.href}
                                         className="text-sm hover:text-primary transition-colors"
                                     >
-                                        {__(link.labelKey)}
+                                        {trans(link.labelKey)}
                                     </a>
                                 </li>
                             ))}
@@ -90,7 +81,7 @@ export default function CustomUserFooter() {
 
                     {/* Legal Links */}
                     <div>
-                        <h4 className="text-lg font-semibold text-white dark:text-primary mb-4">{__('main.footer_legal')}</h4>
+                        <h4 className="text-lg font-semibold text-white dark:text-primary mb-4">{trans('footer_legal')}</h4>
                         <ul className="space-y-2">
                             {legalLinks.map((link) => (
                                 <li key={link.labelKey}>
@@ -98,7 +89,7 @@ export default function CustomUserFooter() {
                                         href={link.href} // Update with actual routes later
                                         className="text-sm hover:text-primary transition-colors"
                                     >
-                                        {__(link.labelKey)}
+                                        {trans(link.labelKey)}
                                     </Link>
                                 </li>
                             ))}
@@ -108,19 +99,19 @@ export default function CustomUserFooter() {
 
                     {/* Newsletter Signup */}
                     <div className="md:col-span-2 lg:col-span-1">
-                        <h4 className="text-lg font-semibold text-white dark:text-primary mb-4">{__('main.footer_newsletter_title')}</h4>
+                        <h4 className="text-lg font-semibold text-white dark:text-primary mb-4">{trans('footer_newsletter_title')}</h4>
                         <p className="text-sm mb-3">
-                            {__('main.footer_newsletter_description')}
+                            {trans('footer_newsletter_description')}
                         </p>
                         <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-2">
                             <Input
                                 type="email"
-                                placeholder={__('main.footer_email_placeholder')}
+                                placeholder={trans('footer_email_placeholder')}
                                 className="bg-gray-800 dark:bg-muted border-gray-700 dark:border-border text-white dark:text-foreground placeholder:text-gray-400 dark:placeholder:text-muted-foreground flex-grow"
-                                aria-label={__('main.footer_email_placeholder')}
+                                aria-label={trans('footer_email_placeholder')}
                             />
                             <Button type="submit" className="moroccan-gradient text-white border-0 px-5 hover:opacity-90 transition-opacity">
-                                {__('main.footer_subscribe_button')}
+                                {trans('footer_subscribe_button')}
                             </Button>
                         </form>
                     </div>
@@ -132,10 +123,10 @@ export default function CustomUserFooter() {
                 <div className="container mx-auto px-4 lg:px-8">
                     <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-start">
                         <p className="text-xs text-gray-400 dark:text-muted-foreground/80">
-                            &copy; {currentYear} {__('main.app_name')}. {__('main.footer_all_rights_reserved')}.
+                            &copy; {currentYear} {trans('app_name')}. {trans('footer_all_rights_reserved')}.
                         </p>
                         <p className="text-xs text-gray-400 dark:text-muted-foreground/80 mt-2 md:mt-0">
-                            {__('main.footer_made_with_love')} <span className="text-primary">&hearts;</span> {__('main.footer_in_morocco')}
+                            {trans('footer_made_with_love')} <span className="text-primary">&hearts;</span> {trans('footer_in_morocco')}
                         </p>
                     </div>
                 </div>

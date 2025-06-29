@@ -1,15 +1,8 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
+import { trans } from '@/lib/utils';
 
-// Helper to get translations
-const __ = (key: string, replacements = {}) => {
-    const { translations } = usePage().props as unknown as { translations: Record<string, string> };
-    let translation = translations[key] || key;
-    Object.keys(replacements).forEach(r => {
-        translation = translation.replace(`:${r}`, (replacements as any)[r]);
-    });
-    return translation;
-};
+
 
 export default function FinalCTASection() {
     return (
@@ -19,17 +12,17 @@ export default function FinalCTASection() {
             <div className="container mx-auto px-4 lg:px-8 relative z-10">
                 <div className="text-center max-w-3xl mx-auto">
                     <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6">
-                        {__('main.final_cta_title')}
+                        {trans('final_cta_title')}
                     </h2>
                     <p className="text-lg md:text-xl mb-6 md:mb-8 text-white/90">
-                        {__('main.final_cta_subtitle')}
+                        {trans('final_cta_subtitle')}
                     </p>
                     <Link href={route('register')}>
                         <Button
                             size="lg"
                             className="bg-white text-primary hover:bg-white/90 text-md md:text-lg px-10 py-3 md:px-12 md:py-3.5 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105"
                         >
-                            {__('main.final_cta_button')}
+                            {trans('final_cta_button')}
                         </Button>
                     </Link>
                 </div>

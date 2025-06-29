@@ -1,47 +1,39 @@
 import { useState, useEffect } from 'react';
-import { Link, usePage } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { trans } from '@/lib/utils';
 
-// Helper to get translations
-const __ = (key: string, replacements = {}) => {
-    const { translations } = usePage().props as unknown as { translations: Record<string, string> };
-    let translation = translations[key] || key;
-    Object.keys(replacements).forEach(r => {
-        translation = translation.replace(`:${r}`, (replacements as any)[r]);
-    });
-    return translation;
-};
 
 const heroSlidesData = [
     {
-        titleKey: 'main.hero_title_1',
-        subtitleKey: 'main.hero_subtitle_1',
+        titleKey: 'hero_title_1',
+        subtitleKey: 'hero_subtitle_1',
         image: 'https://images.unsplash.com/photo-1556742044-3c52d6e88c62?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
         bgGradient: 'from-amber-900/80 via-orange-800/70 to-red-900/80',
-        cta1Key: 'main.join_now',
+        cta1Key: 'join_now',
         cta1Link: 'register',
-        cta2Key: 'main.learn_more',
+        cta2Key: 'learn_more',
         cta2Link: '#how-it-works',
     },
     {
-        titleKey: 'main.hero_title_2',
-        subtitleKey: 'main.hero_subtitle_2',
+        titleKey: 'hero_title_2',
+        subtitleKey: 'hero_subtitle_2',
         image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
         bgGradient: 'from-green-900/80 via-emerald-800/70 to-teal-900/80',
-        cta1Key: 'main.join_now',
+        cta1Key: 'join_now',
         cta1Link: 'register',
-        cta2Key: 'main.learn_more',
+        cta2Key: 'learn_more',
         cta2Link: '#how-it-works',
     },
     {
-        titleKey: 'main.hero_title_3',
-        subtitleKey: 'main.hero_subtitle_3',
+        titleKey: 'hero_title_3',
+        subtitleKey: 'hero_subtitle_3',
         image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2015&q=80',
         bgGradient: 'from-blue-900/80 via-indigo-800/70 to-purple-900/80',
-        cta1Key: 'main.join_now',
+        cta1Key: 'join_now',
         cta1Link: 'register',
-        cta2Key: 'main.learn_more',
+        cta2Key: 'learn_more',
         cta2Link: '#how-it-works',
     },
 ];
@@ -49,7 +41,6 @@ const heroSlidesData = [
 export default function HeroSection() {
     const [isVisible, setIsVisible] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0);
-    const { component } = usePage();
 
 
     useEffect(() => {
@@ -71,10 +62,10 @@ export default function HeroSection() {
     // Translate slide content
     const heroSlides = heroSlidesData.map(slide => ({
         ...slide,
-        title: __(slide.titleKey),
-        subtitle: __(slide.subtitleKey),
-        cta1Text: __(slide.cta1Key),
-        cta2Text: __(slide.cta2Key),
+        title: trans(slide.titleKey),
+        subtitle: trans(slide.subtitleKey),
+        cta1Text: trans(slide.cta1Key),
+        cta2Text: trans(slide.cta2Key),
     }));
 
 
@@ -150,7 +141,7 @@ export default function HeroSection() {
 
             <button
                 onClick={prevSlide}
-                aria-label={__('main.previous_slide')}
+                aria-label={trans('previous_slide')}
                 className="absolute ltr:left-4 rtl:right-4 top-1/2 -translate-y-1/2 z-20 p-2 md:p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all duration-300 hover:scale-110"
             >
                 <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
@@ -158,7 +149,7 @@ export default function HeroSection() {
 
             <button
                 onClick={nextSlide}
-                aria-label={__('main.next_slide')}
+                aria-label={trans('next_slide')}
                 className="absolute ltr:right-4 rtl:left-4 top-1/2 -translate-y-1/2 z-20 p-2 md:p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all duration-300 hover:scale-110"
             >
                 <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
@@ -174,7 +165,7 @@ export default function HeroSection() {
                         }`}
                         role="tab"
                         aria-selected={index === currentSlide}
-                        aria-label={`${__('main.go_to_slide')} ${index + 1}`}
+                        aria-label={`${trans('go_to_slide')} ${index + 1}`}
                     />
                 ))}
             </div>

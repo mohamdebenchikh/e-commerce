@@ -1,35 +1,26 @@
 import { Card, CardContent } from '@/components/ui/card';
-import { usePage } from '@inertiajs/react';
+import { trans } from '@/lib/utils';
 
-// Helper to get translations
-const __ = (key: string, replacements = {}) => {
-    const { translations } = usePage().props as unknown as { translations: Record<string, string> };
-    let translation = translations[key] || key;
-    Object.keys(replacements).forEach(r => {
-        translation = translation.replace(`:${r}`, (replacements as any)[r]);
-    });
-    return translation;
-};
 
 const featuresData = [
-    { titleKey: 'main.why_feature_1_title', descriptionKey: 'main.why_feature_1_desc', icon: '💸' },
-    { titleKey: 'main.why_feature_2_title', descriptionKey: 'main.why_feature_2_desc', icon: '🚚' },
-    { titleKey: 'main.why_feature_3_title', descriptionKey: 'main.why_feature_3_desc', icon: '📈' },
+    { titleKey: 'why_feature_1_title', descriptionKey: 'why_feature_1_desc', icon: '💸' },
+    { titleKey: 'why_feature_2_title', descriptionKey: 'why_feature_2_desc', icon: '🚚' },
+    { titleKey: 'why_feature_3_title', descriptionKey: 'why_feature_3_desc', icon: '📈' },
 ];
 
 export default function WhyChooseSection() {
     const features = featuresData.map(f => ({
         ...f,
-        title: __(f.titleKey),
-        description: __(f.descriptionKey),
+        title: trans(f.titleKey),
+        description: trans(f.descriptionKey),
     }));
 
     return (
         <section className="py-12 md:py-20 bg-gradient-to-b from-secondary/10 dark:from-black/20 to-background dark:to-background/70">
             <div className="container mx-auto px-4 lg:px-8">
                 <div className="text-center mb-10 md:mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-3">{__('main.why_choose_us_title')}</h2>
-                    <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">{__('main.why_choose_us_subtitle')}</p>
+                    <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-3">{trans('why_choose_us_title')}</h2>
+                    <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">{trans('why_choose_us_subtitle')}</p>
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-6 md:gap-8">

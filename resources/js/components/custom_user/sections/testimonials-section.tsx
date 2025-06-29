@@ -1,36 +1,28 @@
 import { Card, CardContent } from '@/components/ui/card';
-import { usePage } from '@inertiajs/react';
+import { trans } from '@/lib/utils';
 import { Star } from 'lucide-react';
 
-// Helper to get translations
-const __ = (key: string, replacements = {}) => {
-    const { translations } = usePage().props as unknown as { translations: Record<string, string> };
-    let translation = translations[key] || key;
-    Object.keys(replacements).forEach(r => {
-        translation = translation.replace(`:${r}`, (replacements as any)[r]);
-    });
-    return translation;
-};
+
 
 const testimonialsData = [
     {
-        nameKey: 'main.testimonial_1_name',
-        roleKey: 'main.testimonial_1_role',
-        contentKey: 'main.testimonial_1_content',
+        nameKey: 'testimonial_1_name',
+        roleKey: 'testimonial_1_role',
+        contentKey: 'testimonial_1_content',
         avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face',
         rating: 5,
     },
     {
-        nameKey: 'main.testimonial_2_name',
-        roleKey: 'main.testimonial_2_role',
-        contentKey: 'main.testimonial_2_content',
+        nameKey: 'testimonial_2_name',
+        roleKey: 'testimonial_2_role',
+        contentKey: 'testimonial_2_content',
         avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
         rating: 5,
     },
     {
-        nameKey: 'main.testimonial_3_name',
-        roleKey: 'main.testimonial_3_role',
-        contentKey: 'main.testimonial_3_content',
+        nameKey: 'testimonial_3_name',
+        roleKey: 'testimonial_3_role',
+        contentKey: 'testimonial_3_content',
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face',
         rating: 4,
     },
@@ -39,17 +31,17 @@ const testimonialsData = [
 export default function TestimonialsSection() {
     const testimonials = testimonialsData.map(t => ({
         ...t,
-        name: __(t.nameKey),
-        role: __(t.roleKey),
-        content: __(t.contentKey),
+        name: trans(t.nameKey),
+        role: trans(t.roleKey),
+        content: trans(t.contentKey),
     }));
 
     return (
         <section id="testimonials" className="py-12 md:py-20 bg-background dark:bg-background/70">
             <div className="container mx-auto px-4 lg:px-8">
                 <div className="text-center mb-10 md:mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-3">{__('main.testimonials_title')}</h2>
-                    <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">{__('main.testimonials_subtitle')}</p>
+                    <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-3">{trans('testimonials_title')}</h2>
+                    <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">{trans('testimonials_subtitle')}</p>
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-6 md:gap-8">

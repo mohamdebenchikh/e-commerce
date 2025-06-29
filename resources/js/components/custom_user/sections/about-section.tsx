@@ -1,52 +1,45 @@
-import { usePage } from '@inertiajs/react';
 
 // Helper to get translations
-const __ = (key: string, replacements = {}) => {
-    const { translations } = usePage().props as unknown as { translations: Record<string, string> };
-    let translation = translations[key] || key;
-    Object.keys(replacements).forEach(r => {
-        translation = translation.replace(`:${r}`, (replacements as any)[r]);
-    });
-    return translation;
-};
+
+import { trans } from "@/lib/utils";
 
 const statsData = [
-    { numberKey: 'main.stats_partners_number', labelKey: 'main.stats_partners_label' },
-    { numberKey: 'main.stats_products_number', labelKey: 'main.stats_products_label' },
-    { numberKey: 'main.stats_delivery_number', labelKey: 'main.stats_delivery_label' },
-    { numberKey: 'main.stats_coverage_number', labelKey: 'main.stats_coverage_label' },
+    { numberKey: 'stats_partners_number', labelKey: 'stats_partners_label' },
+    { numberKey: 'stats_products_number', labelKey: 'stats_products_label' },
+    { numberKey: 'stats_delivery_number', labelKey: 'stats_delivery_label' },
+    { numberKey: 'stats_coverage_number', labelKey: 'stats_coverage_label' },
 ];
 
 export default function AboutSection() {
     const stats = statsData.map(s => ({
-        number: __(s.numberKey),
-        label: __(s.labelKey),
+        number: trans(s.numberKey),
+        label: trans(s.labelKey),
     }));
     return (
         <section id="about" className="py-12 md:py-20 bg-background dark:bg-background/70">
             <div className="container mx-auto px-4 lg:px-8">
                 <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
                     <div className="rtl:text-right">
-                        <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4 md:mb-6">{__('main.about_us_title')}</h2>
+                        <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4 md:mb-6">{trans('about_us_title')}</h2>
                         <div className="space-y-6">
                             <div>
-                                <h3 className="text-xl md:text-2xl font-semibold text-primary mb-2 md:mb-3">{__('main.about_who_we_are_title')}</h3>
+                                <h3 className="text-xl md:text-2xl font-semibold text-primary mb-2 md:mb-3">{trans('about_who_we_are_title')}</h3>
                                 <p className="text-md md:text-lg text-muted-foreground leading-relaxed">
-                                    {__('main.about_who_we_are_desc')}
+                                    {trans('about_who_we_are_desc')}
                                 </p>
                             </div>
 
                             <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
                                 <div className="p-4 md:p-6 bg-primary/5 dark:bg-primary/10 rounded-lg">
-                                    <h4 className="text-lg font-semibold text-primary mb-2">{__('main.about_mission_title')}</h4>
+                                    <h4 className="text-lg font-semibold text-primary mb-2">{trans('about_mission_title')}</h4>
                                     <p className="text-muted-foreground text-sm md:text-base">
-                                        {__('main.about_mission_desc')}
+                                        {trans('about_mission_desc')}
                                     </p>
                                 </div>
                                 <div className="p-4 md:p-6 bg-secondary/50 dark:bg-secondary/20 rounded-lg">
-                                    <h4 className="text-lg font-semibold text-primary mb-2">{__('main.about_commitment_title')}</h4>
+                                    <h4 className="text-lg font-semibold text-primary mb-2">{trans('about_commitment_title')}</h4>
                                     <p className="text-muted-foreground text-sm md:text-base">
-                                        {__('main.about_commitment_desc')}
+                                        {trans('about_commitment_desc')}
                                     </p>
                                 </div>
                             </div>

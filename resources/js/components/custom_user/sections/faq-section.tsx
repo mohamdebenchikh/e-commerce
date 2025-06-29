@@ -1,23 +1,15 @@
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { Card } from '@/components/ui/card';
-import { usePage } from '@inertiajs/react';
+import { trans } from '@/lib/utils';
 
-// Helper to get translations
-const __ = (key: string, replacements = {}) => {
-    const { translations } = usePage().props as unknown as { translations: Record<string, string> };
-    let translation = translations[key] || key;
-    Object.keys(replacements).forEach(r => {
-        translation = translation.replace(`:${r}`, (replacements as any)[r]);
-    });
-    return translation;
-};
+
 
 const faqItemsData = [
-    { questionKey: 'main.faq_q1', answerKey: 'main.faq_a1' },
-    { questionKey: 'main.faq_q2', answerKey: 'main.faq_a2' },
-    { questionKey: 'main.faq_q3', answerKey: 'main.faq_a3' },
-    { questionKey: 'main.faq_q4', answerKey: 'main.faq_a4' },
+    { questionKey: 'faq_q1', answerKey: 'faq_a1' },
+    { questionKey: 'faq_q2', answerKey: 'faq_a2' },
+    { questionKey: 'faq_q3', answerKey: 'faq_a3' },
+    { questionKey: 'faq_q4', answerKey: 'faq_a4' },
 ];
 
 interface FAQItemProps {
@@ -53,8 +45,8 @@ export default function FAQSection() {
     const [openFaq, setOpenFaq] = useState<number | null>(null);
 
     const faqItems = faqItemsData.map(item => ({
-        question: __(item.questionKey),
-        answer: __(item.answerKey),
+        question: trans(item.questionKey),
+        answer: trans(item.answerKey),
     }));
 
     const toggleFaq = (index: number) => {
@@ -65,8 +57,8 @@ export default function FAQSection() {
         <section id="faq" className="py-12 md:py-20 bg-gradient-to-b from-background dark:from-background/70 to-secondary/10 dark:to-black/20">
             <div className="container mx-auto px-4 lg:px-8">
                 <div className="text-center mb-10 md:mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-3">{__('main.faq_title')}</h2>
-                    <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">{__('main.faq_subtitle')}</p>
+                    <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-3">{trans('faq_title')}</h2>
+                    <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">{trans('faq_subtitle')}</p>
                 </div>
 
                 <div className="max-w-3xl mx-auto space-y-3 md:space-y-4">
