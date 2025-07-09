@@ -6,11 +6,11 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
-export function trans(key: string, replacements?: Record<string, string>) {
+export function trans(key: string, replacements?: Record<string, string | number>) {
     let translation = _translations[key] || key;
     if (replacements) {
         Object.entries(replacements).forEach(([k, v]) => {
-            translation = translation.replace(new RegExp(`:${k}\\b`, 'g'), v);
+            translation = translation.replace(new RegExp(`:${k}\\b`, 'g'), String(v));
         });
     }
     return translation;

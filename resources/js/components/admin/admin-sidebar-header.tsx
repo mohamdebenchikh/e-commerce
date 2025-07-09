@@ -1,8 +1,8 @@
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { type BreadcrumbItem as BreadcrumbItemType } from '@/types';
-import { LanguageSwitcher } from './language-switcher';
-import AppearanceToggleDropdown from './appearance-dropdown';
+import { LanguageSwitcher } from '../language-switcher';
+import AppearanceToggleDropdown from '../appearance-dropdown';
 
 export function AdminSidebarHeader({ breadcrumbs = [] }: { breadcrumbs?: BreadcrumbItemType[] }) {
     return (

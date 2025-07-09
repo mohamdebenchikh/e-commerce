@@ -1,4 +1,4 @@
-import AdminLayout from '@/layouts/admin-layout';
+import AdminLayout from '@/layouts/admin/admin-layout';
 import { trans } from '@/lib/utils';
 import { SharedData, type BreadcrumbItem } from '@/types';
 import { Head, usePage } from '@inertiajs/react';

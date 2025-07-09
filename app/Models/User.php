@@ -57,4 +57,43 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the user's full name.
+     */
+    public function getNameAttribute(): string
+    {
+        return trim($this->first_name . ' ' . $this->last_name);
+    }
+
+    /**
+     * Get the user's avatar URL.
+     */
+    public function getAvatarUrlAttribute(): ?string
+    {
+        if ($this->photo) {
+            return str_starts_with($this->photo, 'http')
+                ? $this->photo
+                : asset('storage/' . $this->photo);
+        }
+        return null;
+    }
+
+    /**
+     * Get the user's photo URL for display.
+     */
+    public function getPhotoUrlAttribute(): ?string
+    {
+        return $this->getAvatarUrlAttribute();
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function productList()
+    {
+        return $this->belongsToMany(Product::class, 'user_product_list');
+    }
 }

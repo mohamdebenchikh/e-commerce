@@ -193,6 +193,28 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name' => 'product name',
+        'description' => 'description',
+        'details' => 'details',
+        'price' => 'price',
+        'stock_quantity' => 'stock quantity',
+        'sku' => 'SKU',
+        'image' => 'main image',
+        'additional_images' => 'additional images',
+        'additional_images.*' => 'additional image',
+        'category_ids' => 'categories',
+        'status' => 'status',
+        'is_featured' => 'featured status',
+        'ar_name' => 'Arabic name',
+        'en_name' => 'English name',
+        'fr_name' => 'French name',
+        'ar_description' => 'Arabic description',
+        'en_description' => 'English description',
+        'fr_description' => 'French description',
+        'sort_order' => 'sort order',
+        'is_active' => 'status',
+        'shipping_cost' => 'shipping cost',
+    ],
 
 ];

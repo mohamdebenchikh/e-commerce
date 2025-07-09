@@ -1,12 +1,12 @@
 import { DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from '@/components/ui/dropdown-menu';
-import { UserInfo } from '@/components/user-info';
 import { useMobileNavigation } from '@/hooks/use-mobile-navigation';
-import { SharedData, type User } from '@/types';
+import { Admin, SharedData,} from '@/types';
 import { Link, router, usePage } from '@inertiajs/react';
 import { LogOut, Settings } from 'lucide-react';
+import { AdminInfo } from './admin-info';
 
 interface UserMenuContentProps {
-    user: User;
+    user: Admin;
 }
 
 export function AdminMenuContent({ user }: UserMenuContentProps) {
@@ -22,7 +22,7 @@ export function AdminMenuContent({ user }: UserMenuContentProps) {
         <>
             <DropdownMenuLabel className="p-0 font-normal">
                 <div dir={locale === 'ar' ? 'rtl' : 'ltr'} className="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                    <UserInfo user={user} showEmail={true} />
+                    <AdminInfo user={user} showEmail={true} />
                 </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />

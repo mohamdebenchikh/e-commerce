@@ -1,11 +1,11 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
-import { UserInfo } from '@/components/user-info';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { type SharedData } from '@/types';
 import { usePage } from '@inertiajs/react';
 import { ChevronsUpDown } from 'lucide-react';
 import { AdminMenuContent } from './admin-menu-content';
+import { AdminInfo } from './admin-info';
 
 export function NavAdmin() {
     const { auth, locale } = usePage<SharedData>().props;
@@ -18,7 +18,7 @@ export function NavAdmin() {
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <SidebarMenuButton size="lg" className="group text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent">
-                            <UserInfo user={auth.user} />
+                            <AdminInfo user={auth.admin} />
                             <ChevronsUpDown className="ms-auto size-4" />
                         </SidebarMenuButton>
                     </DropdownMenuTrigger>
@@ -27,7 +27,7 @@ export function NavAdmin() {
                         align="end"
                         side={isMobile ? 'bottom' : state === 'collapsed' ? (locale === 'ar' ? 'right' : 'left') : 'bottom'}
                     >
-                        <AdminMenuContent user={auth.user} />
+                        <AdminMenuContent user={auth.admin} />
                     </DropdownMenuContent>
                 </DropdownMenu>
             </SidebarMenuItem>

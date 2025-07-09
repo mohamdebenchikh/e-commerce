@@ -1,5 +1,5 @@
-import { Head, useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
+import { Head, useForm, usePage } from '@inertiajs/react';
+import { LoaderCircle, Mail, Lock, User } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
 import InputError from '@/components/input-error';
@@ -9,6 +9,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
+import { trans } from '@/lib/utils';
+import { SharedData } from '@/types';
 
 type LoginForm = {
     email: string;
@@ -28,6 +30,10 @@ export default function Login({ status, canResetPassword }: LoginProps) {
         remember: false,
     });
 
+    const {locale} = usePage<SharedData>().props;
+    const textAlignment = locale === "ar" ? "${textAlignment}" : "text-left";
+
+
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
         post(route('login'), {
@@ -36,13 +42,33 @@ export default function Login({ status, canResetPassword }: LoginProps) {
     };
 
     return (
-        <AuthLayout title="Log in to your account" description="Enter your email and password below to log in">
-            <Head title="Log in" />
+        <AuthLayout
+            title={trans('Log in to your account')}
+            description={trans('Enter your email and password below to log in')}
+            maxWidth="md"
+        >
+            <Head title={trans('Log in')} />
 
-            <form className="flex flex-col gap-6" onSubmit={submit}>
-                <div className="grid gap-6">
-                    <div className="grid gap-2">
-                        <Label htmlFor="email">Email address</Label>
+            {status && (
+                <div className="mb-6 p-4 text-center text-sm font-medium text-green-600 bg-green-50 rounded-lg border border-green-200">
+                    {status}
+                </div>
+            )}
+
+            {/* User Icon */}
+            <div className="flex justify-center mb-6">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+                    <User className="h-8 w-8 text-primary" />
+                </div>
+            </div>
+
+            <form className="space-y-6" onSubmit={submit}>
+                <div className="space-y-4">
+                    <div className="space-y-2">
+                        <Label htmlFor="email" className="${textAlignment} flex items-center gap-2">
+                            <Mail className="h-4 w-4" />
+                            {trans('Email address')}
+                        </Label>
                         <Input
                             id="email"
                             type="email"
@@ -52,17 +78,21 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             autoComplete="email"
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
-                            placeholder="email@example.com"
+                            placeholder={trans('email@example.com')}
+                            className={`${textAlignment} ${errors.email ? 'border-destructive' : ''}`}
                         />
                         <InputError message={errors.email} />
                     </div>
 
-                    <div className="grid gap-2">
-                        <div className="flex items-center">
-                            <Label htmlFor="password">Password</Label>
+                    <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                            <Label htmlFor="password" className="${textAlignment} flex items-center gap-2">
+                                <Lock className="h-4 w-4" />
+                                {trans('Password')}
+                            </Label>
                             {canResetPassword && (
-                                <TextLink href={route('password.request')} className="ml-auto text-sm" tabIndex={5}>
-                                    Forgot password?
+                                <TextLink href={route('password.request')} className="text-sm" tabIndex={5}>
+                                    {trans('Forgot password?')}
                                 </TextLink>
                             )}
                         </div>
@@ -74,7 +104,8 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             autoComplete="current-password"
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
-                            placeholder="Password"
+                            placeholder={trans('Password')}
+                            className={`${textAlignment} ${errors.password ? 'border-destructive' : ''}`}
                         />
                         <InputError message={errors.password} />
                     </div>
@@ -87,24 +118,28 @@ export default function Login({ status, canResetPassword }: LoginProps) {
                             onClick={() => setData('remember', !data.remember)}
                             tabIndex={3}
                         />
-                        <Label htmlFor="remember">Remember me</Label>
+                        <Label htmlFor="remember" >
+                            {trans('remember_me')}
+                        </Label>
                     </div>
 
-                    <Button type="submit" className="mt-4 w-full" tabIndex={4} disabled={processing}>
-                        {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                        Log in
+                    <Button
+                        type="submit"
+                        className='w-full'
+                        disabled={processing}
+                    >
+                        {processing && <LoaderCircle className="h-4 w-4 animate-spin ml-2" />}
+                        {trans('Log in')}
                     </Button>
                 </div>
 
                 <div className="text-center text-sm text-muted-foreground">
-                    Don't have an account?{' '}
-                    <TextLink href={route('register')} tabIndex={5}>
-                        Sign up
+                    {trans('Don\'t have an account?')}{' '}
+                    <TextLink href={route('register')} tabIndex={5} className="text-primary hover:text-primary/80">
+                        {trans('Sign up')}
                     </TextLink>
                 </div>
             </form>
-
-            {status && <div className="mb-4 text-center text-sm font-medium text-green-600">{status}</div>}
         </AuthLayout>
     );
 }

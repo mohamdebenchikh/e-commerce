@@ -1,6 +1,6 @@
 // Components
 import { Head, useForm } from '@inertiajs/react';
-import { LoaderCircle } from 'lucide-react';
+import { LoaderCircle, Mail, ArrowLeft } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
 import InputError from '@/components/input-error';
@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
+import { trans } from '@/lib/utils';
 
 export default function ForgotPassword({ status }: { status?: string }) {
     const { data, setData, post, processing, errors } = useForm<Required<{ email: string }>>({
@@ -22,15 +23,33 @@ export default function ForgotPassword({ status }: { status?: string }) {
     };
 
     return (
-        <AuthLayout title="Forgot password" description="Enter your email to receive a password reset link">
-            <Head title="Forgot password" />
+        <AuthLayout
+            title={trans('Forgot password')}
+            description={trans('Enter your email to receive a password reset link')}
+            maxWidth="md"
+        >
+            <Head title={trans('Forgot password')} />
 
-            {status && <div className="mb-4 text-center text-sm font-medium text-green-600">{status}</div>}
+            {status && (
+                <div className="mb-6 p-4 text-center text-sm font-medium text-green-600 bg-green-50 rounded-lg border border-green-200">
+                    {status}
+                </div>
+            )}
+
+            {/* Mail Icon */}
+            <div className="flex justify-center mb-6">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+                    <Mail className="h-8 w-8 text-primary" />
+                </div>
+            </div>
 
             <div className="space-y-6">
-                <form onSubmit={submit}>
-                    <div className="grid gap-2">
-                        <Label htmlFor="email">Email address</Label>
+                <form onSubmit={submit} className="space-y-4">
+                    <div className="space-y-2">
+                        <Label htmlFor="email" className="text-right flex items-center gap-2">
+                            <Mail className="h-4 w-4" />
+                            {trans('Email address')}
+                        </Label>
                         <Input
                             id="email"
                             type="email"
@@ -39,23 +58,27 @@ export default function ForgotPassword({ status }: { status?: string }) {
                             value={data.email}
                             autoFocus
                             onChange={(e) => setData('email', e.target.value)}
-                            placeholder="email@example.com"
+                            placeholder={trans('email@example.com')}
+                            className={`text-right ${errors.email ? 'border-destructive' : ''}`}
                         />
-
                         <InputError message={errors.email} />
                     </div>
 
-                    <div className="my-6 flex items-center justify-start">
-                        <Button className="w-full" disabled={processing}>
-                            {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
-                            Email password reset link
-                        </Button>
-                    </div>
+                    <Button
+                        className="w-full moroccan-gradient text-white border-0 hover:opacity-90 transition-opacity"
+                        disabled={processing}
+                    >
+                        {processing && <LoaderCircle className="h-4 w-4 animate-spin ml-2" />}
+                        {trans('Email password reset link')}
+                    </Button>
                 </form>
 
-                <div className="space-x-1 text-center text-sm text-muted-foreground">
-                    <span>Or, return to</span>
-                    <TextLink href={route('login')}>log in</TextLink>
+                <div className="text-center text-sm text-muted-foreground">
+                    <span>{trans('Or, return to')}</span>{' '}
+                    <TextLink href={route('login')} className="text-primary hover:text-primary/80 inline-flex items-center gap-1">
+                        <ArrowLeft className="h-3 w-3" />
+                        {trans('log in')}
+                    </TextLink>
                 </div>
             </div>
         </AuthLayout>
